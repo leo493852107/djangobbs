@@ -55,7 +55,7 @@ class Comment(models.Model):
             raise ValidationError(u"评论不能为空!")
 
     def __str__(self):
-        return "%s, P:%s, %s" % (self.article, self.parent_comment, self.comment)
+        return "%s, P:%s, %s" % (self.article.id, self.parent_comment, self.comment)
 
     class Meta:
         verbose_name = u"评论"

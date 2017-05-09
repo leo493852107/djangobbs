@@ -1,0 +1,96 @@
+.page-container {
+    border: 1px dashed darkcyan;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.wrap-left {
+    width: 75%;
+    float: left;
+}
+
+.wrap-right {
+    width: 25%;
+    float: left;
+    background-color: blueviolet;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.footer {
+    margin-top: 50px;
+    height: 200px;
+    background-color: black;
+}
+
+.article-head-img img {
+    width: 220px;
+    height: 125px;
+}
+
+.article-box {
+    padding-bottom: 10px;
+}
+
+.article-brief {
+    margin-left: -10px;
+}
+
+.article-title {
+    font-size: 20px;
+}
+
+a {
+    color: #333;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+body {
+    color: rgb(51, 51, 51);
+    font-family: Arial, 微软雅黑, "Microsoft yahei", "Hiragino Sans GB", "冬青黑体简体中文 w3", "Microsoft Yahei", "Hiragino Sans GB", "冬青黑体简体中文 w3", STXihei, 华文细黑, SimSun, 宋体, Heiti, 黑体, sans-serif;
+}
+
+.article-brief-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #999;
+}
+
+.article-title-bg {
+    font-size: 30px;
+}
+
+.article-title-brief {
+    color: #999;
+    margin-top: 10px;
+}
+
+.article-detail-head-img {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.article-content {
+    line-height: 30px;
+}
+
+.comment-node {
+    border: 1px solid darkcyan;
+    padding: 5px;
+}
+
+.root-comment {
+    border: 1px solid brown;
+    padding: 5px;
+}

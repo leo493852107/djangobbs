@@ -1,18 +1,49 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load custom %}
 
 {% block page-container %}
 
-    {% for article in article_list %}
-        <div class="article-box">
-            <div class="article-head-img">
-                <img src="{{ MEDIA_URL }}{{ article.head_img }}">
+    <div class="wrap-left">
+        {% for article in article_list %}
+            <div class="article-box row">
+                <div class="article-head-img col-md-4">
+                    <img src="{{ MEDIA_URL }}{{ article.head_img }}">
+                </div>
+                <div class="article-brief col-md-8">
+                    <a class="article-title" href="{% url 'article_detail' article.id %}">{{ article.title }}</a>
+                    <div class="article-brief-info">
+                        <span>
+                            {{ article.author.name }}
+                        </span>
+                        <span>
+                            {{ article.pub_date }}
+                        </span>
+                        <span>{% filter_comment article as comments %}</span>
+                        <span>
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            {{ comments.comment_count }}
+                        </span>
+                        <span>
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                            {{ comments.thumb_count }}
+                        </span>
+                    </div>
+                    <div class="article-brief-text">
+                        <span>{{ article.brief }}</span>
+                    </div>
+                </div>
             </div>
-            <div class="article-brief">
-                {{ article.title }}
-            </div>
-        </div>
-    {% endfor %}
+            <hr>
+        {% endfor %}
+    </div>
+
+    <div class="wrap-right">
+ddd
+    </div>
+    <div class="clear-both">
+
+    </div>
 
 
 {% endblock %}

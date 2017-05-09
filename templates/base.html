@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -42,6 +43,7 @@
 </style></head>
 
   <body>
+  {% csrf_token %}
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -79,7 +81,8 @@
       </div>
     </nav>
 
-    <div class="container">
+{#    <div class="container">#}
+    <div class="page-container">
 
         {% block page-container %}
 
@@ -90,6 +93,9 @@
         {% endblock %}
     <iframe id="tmp_downloadhelper_iframe" style="display: none;" src="./Fixed Top Navbar Example for Bootstrap_files/saved_resource.html"></iframe></div> <!-- /container -->
 
+    <div class="footer">
+
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -99,6 +105,9 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/static/js/ie10-viewport-bug-workaround.js"></script>
-  
+
+    {% block bottom-js %}
+    
+    {% endblock %}
 
 </body><div></div></html>
