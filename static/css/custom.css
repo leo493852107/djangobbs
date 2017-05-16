@@ -94,3 +94,8 @@ body {
     border: 1px solid brown;
     padding: 5px;
 }
+
+.new-article-notify {
+    background-color: pink;
+    padding: 10px;
+}

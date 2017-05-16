@@ -18,15 +18,16 @@
         </div>
         <div class="article-content">
             <img class="article-detail-head-img" src="{{ MEDIA_URL }}{{ article_obj.head_img }}">
-            {{ article_obj.content }}
+            {{ article_obj.content | safe }}
         </div>
 
         <div class="comment-box">
             {% if request.user.is_authenticated %}
-                <textarea class="form-control" rows="3">
 
-                </textarea>
-                <button type="button" style="margin-top: 10px" class="btn btn-success pull-right">评论</button>
+                <div class="new-comment-box">
+                    <textarea class="form-control" rows="3"></textarea>
+                    <button type="button" style="margin-top: 10px" class="btn btn-success pull-right">评论</button>
+                </div>
 
             {% else %}
                 <div class="jumbotron">
@@ -54,28 +55,51 @@
 
     function getComments() {
         $.get("{% url 'get_comments' article_obj.id %}", function(callback) {
-            console.log(callback);
+            // console.log(callback);
             $(".comment-list").html(callback);
+
+            // start add comment
+            $(".add-comment").click(function () {
+                var comment_id = $(this).attr("comment-id");
+                console.log("commnet-id:" + comment_id);
+
+                var new_comment_box = $(".new-comment-box").clone(true);
+                $(".new-comment-box").remove();// 删除之前的
+                $(this).parent().append(new_comment_box);
+            });
+            // end add comment
+
         });
     }
 
     $(document).ready(function () {
+
+        getComments(); // 页面加载后先把评论加载出来
+
+
         $(".comment-box button").click(function () {
             var comment_text = $(".comment-box textarea").val();
             if (comment_text.trim().length < 5) {
                 alert("评论不能少于5个字");
             } else {
+                var parent_comment_id = $(this).parent().prev().attr('comment-id');
                 $.post("{% url 'post_comment' %}",
                     {
                         'comment_type': 1,
                         article_id:"{{ article_obj.id }}",
-                        parent_comment_id: null,
+                        parent_comment_id: parent_comment_id,
                         'comment': comment_text.trim(),
                         'csrfmiddlewaretoken': getCSRF,
                     },
                     function(callback) {
                         if (callback == 'post-comment-success') {
-                            alert('post-comment-success');
+                            var new_comment_box_div = $(".new-comment-box").clone(true);
+                            $(".comment-list").before(new_comment_box_div);
+                            $(".new-comment-box textarea").val("");
+                            // 在刷新评论之前把评论框再放回文章 底部
+
+                            getComments(); // 评论加载出来
+                            // alert('post-comment-success');
                         }
                 });
             }

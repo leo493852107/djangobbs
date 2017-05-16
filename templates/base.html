@@ -72,6 +72,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     <li><a href="#">{{ request.user.userprofile.name }}</a></li>
+                    <li><a href="{% url 'new-article' %}">发帖</a></li>
                     <li><a href="{% url 'logout' %}">退出</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">注册/登录</a></li>

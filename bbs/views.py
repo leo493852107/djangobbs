@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from bbs import models
 from bbs import comment_hander
+from bbs import form
 
 import json
 
@@ -84,3 +85,37 @@ def get_comments(request, article_id):
     tree_html = comment_hander.render_comment_tree(comment_tree)
 
     return HttpResponse(tree_html)
+
+
+@login_required()
+def new_articles(request):
+
+    if request.method == 'GET':
+        article_form = form.ArticleModelForm
+        return render(request, 'bbs/new_article.html', {
+            'article_form': article_form,
+        })
+
+    elif request.method == 'POST':
+        article_form = form.ArticleModelForm(request.POST, request.FILES)
+        if article_form.is_valid():
+            data = article_form.cleaned_data
+            data['author_id'] = request.user.userprofile.id
+            article_obj = models.Article(**data)
+            article_obj.save()
+
+            # article_form.save()
+            return HttpResponse('发布成功')
+        else:
+            return render(request, 'bbs/new_article.html', {
+                'article_form': article_form,
+            })
+
+
+def get_latest_article_count(request):
+    latest_article_id = request.GET.get("latest_id")
+    if latest_article_id:
+        new_article_count = models.Article.objects.filter(id__gt = latest_article_id).count()
+    else:
+        new_article_count = 0
+    return HttpResponse(json.dumps({'new_article_count': new_article_count}))

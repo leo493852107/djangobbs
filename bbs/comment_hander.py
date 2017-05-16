@@ -21,7 +21,9 @@ def render_tree_node(tree_dic, margin_val):
     html = ""
     for k,v in tree_dic.items():
         ele = "<div class='comment-node' style='margin-left:%spx'>" % margin_val + k.comment + "<span style='margin-left:20px'>%s</span>" % k.date\
-              + "<span style='margin-left:20px'>%s</span>" % k.user.name +  "</div>"
+              + "<span style='margin-left:20px'>%s</span>" % k.user.name \
+              + '<span comment-id="%s"' % k.id + ' style="margin-left:20px" class="glyphicon glyphicon-comment add-comment" aria-hidden="true"></span>'\
+        +  "</div>"
         html += ele
         html += render_tree_node(v, margin_val + 10)
     return html
@@ -31,7 +33,9 @@ def render_comment_tree(tree_dic):
     html = ""
     for k,v in tree_dic.items():
         ele = "<div class='root-comment'>" + k.comment + "<span style='margin-left:20px'>%s</span>" % k.date\
-              + "<span style='margin-left:20px'>%s</span>" % k.user.name + "</div>"
+              + "<span style='margin-left:20px'>%s</span>" % k.user.name\
+              + '<span comment-id="%s"' % k.id + ' style="margin-left:20px" class="glyphicon glyphicon-comment add-comment" aria-hidden="true"></span>'\
+              + "</div>"
         html += ele
         html += render_tree_node(v, 10)
     return html

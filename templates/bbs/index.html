@@ -5,8 +5,11 @@
 {% block page-container %}
 
     <div class="wrap-left">
-        {% for article in article_list %}
-            <div class="article-box row">
+        <div class="new-article-notify hide">
+            <a href="{{ request.path }}">您有<span></span>条新消息</a>
+        </div>
+        {% for article in article_list reversed %}
+            <div article_id="{{ article.id }}" class="article-box row">
                 <div class="article-head-img col-md-4">
                     <img src="{{ MEDIA_URL }}{{ article.head_img }}">
                 </div>
@@ -46,4 +49,26 @@ ddd
     </div>
 
 
+{% endblock %}
+
+
+{% block bottom-js %}
+<script>
+    $(document).ready(function () {
+        var new_article_refresh = setInterval(function () {
+            var latest_article_id = $( $(".wrap-left").children()[1] ).attr("article_id");
+            $.get("{% url 'get_latest_article_count' %}", { latest_id: latest_article_id}, function (callback) {
+                // 先转换成标准json
+                var data = $.parseJSON(callback);
+                if (data.new_article_count > 0) {
+                    if ($(".new-article-notify").hasClass("hide")) {
+                        $(".new-article-notify").removeClass("hide");
+                    }
+                    $(".new-article-notify span").html(data.new_article_count);
+
+                }
+            }); // end get
+        }, 3000); // end setInterval
+    })
+</script>
 {% endblock %}
